@@ -69,9 +69,9 @@ class _AuthScreenState extends State<AuthScrren> {
             .collection('usuarios')
             .doc(credenciaisUsuario.user!.uid)
             .set({
-          "username": _nome,
-          "email": _email,
-          "image_url": urlImagem,
+          'username': _nome,
+          'email': _email,
+          'image_url': urlImagem,
         });
       }
     } on FirebaseAuthException catch (error) {

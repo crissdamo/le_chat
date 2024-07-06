@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class NovaMensagem extends StatefulWidget {
@@ -10,7 +12,7 @@ class NovaMensagem extends StatefulWidget {
 }
 
 class _NovaMensagemState extends State<NovaMensagem> {
-  var _mensagemController = TextEditingController();
+  final _mensagemController = TextEditingController();
 
   @override
   void dispose() {
@@ -18,16 +20,32 @@ class _NovaMensagemState extends State<NovaMensagem> {
     super.dispose();
   }
 
-  void _enviarMensagem() {
+  void _enviarMensagem() async {
     final mensagem = _mensagemController.text;
 
     if (mensagem.trim().isEmpty) {
       return;
     }
 
-    // enviar pelo Firebase
-
+    FocusScope.of(context).unfocus();
     _mensagemController.clear();
+
+    final user = FirebaseAuth.instance.currentUser!;
+
+    final userData = await FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(user.uid)
+        .get();
+
+    // add método cria um id dinâmico
+
+    FirebaseFirestore.instance.collection('chat').add({
+      'text': mensagem,
+      'criadoem': Timestamp.now(),
+      'userID': user.uid,
+      'username': userData.data()!['username'],
+      'image_url': userData.data()!['image_url'],
+    });
   }
 
   @override
@@ -42,7 +60,8 @@ class _NovaMensagemState extends State<NovaMensagem> {
               textCapitalization: TextCapitalization.sentences,
               autocorrect: true,
               enableSuggestions: true,
-              decoration: InputDecoration(labelText: 'Enviar mensagem...'),
+              decoration:
+                  const InputDecoration(labelText: 'Enviar mensagem...'),
             ),
           ),
           IconButton(

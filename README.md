@@ -33,3 +33,16 @@ https://pub.dev/packages/image_picker
 ### Referencias:
 https://firebase.flutter.dev/docs/firestore/overview/
 
+
+* push notification
+> flutter pub add firebase_messaging
+
+### Referencias:
+https://firebase.google.com/docs/cloud-messaging/flutter/client?hl=pt-br
+
+
+
+* firebase npm
+> npm install -g firebase-tools
+> firebase init
+> firebase deploy
