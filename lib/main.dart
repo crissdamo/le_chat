@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:habla/screens/chat.dart';
+import 'package:habla/screens/resumonotificacao.dart';
 import 'package:habla/screens/splash.dart';
 import 'firebase_options.dart';
 
@@ -42,6 +43,14 @@ class MyApp extends StatelessWidget {
           return AuthScrren();
         },
       ),
+
+      //Usamos a chave de navegação para que o gerenciadorpush faça o controle das rotas e não se preocupe com o contexto
+      navigatorKey: chaveDeNavegacao,
+
+      //Relaçao Chave/Tela para a navegação
+      routes: {
+        '/aviso': (context) => const ResumoNotificacao(),
+      },
     );
   }
 }

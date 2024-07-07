@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NovaMensagem extends StatefulWidget {
   const NovaMensagem({super.key});
@@ -13,6 +14,7 @@ class NovaMensagem extends StatefulWidget {
 
 class _NovaMensagemState extends State<NovaMensagem> {
   final _mensagemController = TextEditingController();
+  var notificacoesLocais = FlutterLocalNotificationsPlugin();
 
   @override
   void dispose() {
@@ -46,6 +48,27 @@ class _NovaMensagemState extends State<NovaMensagem> {
       'username': userData.data()!['username'],
       'image_url': userData.data()!['image_url'],
     });
+
+// iNÍCIO: Recebe notificação local após o envio de uma mensagem
+    const AndroidNotificationDetails canalAgora = AndroidNotificationDetails(
+      'canalAgoraId',
+      'Notificações Agora',
+      channelDescription: 'notificações bem importantes e no momento exato',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
+    const NotificationDetails notificationDetails =
+        NotificationDetails(android: canalAgora);
+
+    await notificacoesLocais.show(
+      10,
+      'Mensagem Enviada',
+      'Em: ${DateTime.now()}',
+      notificationDetails,
+      payload: mensagem,
+    );
+    // FIM: Recebe notificação local após o envio de uma mensagem
   }
 
   @override

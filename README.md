@@ -10,6 +10,13 @@ A atividade foi feita com base nas bibliotecas descritas a baixo e no curso "A C
 
 # Bibliotecas instaladas
 
+
+* logger
+> flutter pub add logger
+### Referência:
+https://pub.dev/packages/logger
+
+
 * firebase
 > flutter pub add firebase_core
 > flutter pub add firebase_auth
@@ -46,3 +53,9 @@ https://firebase.google.com/docs/cloud-messaging/flutter/client?hl=pt-br
 > npm install -g firebase-tools
 > firebase init
 > firebase deploy
+
+
+* notificacao local
+> flutter pub add flutter_local_notifications
+### Referência:
+https://pub.dev/packages/flutter_local_notifications
