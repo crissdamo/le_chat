@@ -44,11 +44,12 @@ class _AuthScreenState extends State<AuthScrren> {
         _estaAutenticado = true;
       });
       if (_estaLogado) {
+        // autenticação via SDK Firebase
         final credenciaisUsuario = await _firebase.signInWithEmailAndPassword(
             email: _email, password: _senha);
-        // print(credenciaisUsuario);
+        print(credenciaisUsuario);
       } else {
-        // autenticação via SDK Firebase
+        // Cria um novo usuário
         final credenciaisUsuario =
             await _firebase.createUserWithEmailAndPassword(
           email: _email,
@@ -75,9 +76,11 @@ class _AuthScreenState extends State<AuthScrren> {
         });
       }
     } on FirebaseAuthException catch (error) {
-      if (error.code == "email-already-in-use") {
-        //..
-      }
+      // if (error.code == "email-already-in-use") {
+      //   //..
+      // }
+
+      // envia mensage de erro (formato genérico, é possível fazr um tratamento específico para cada código de erro)
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.message ?? "Falha na autenticação."),
@@ -86,6 +89,7 @@ class _AuthScreenState extends State<AuthScrren> {
         _estaAutenticado = false;
       });
     }
+
     // if (formValido) {
     //   print(_email);
     //   print(_senha);
@@ -101,6 +105,7 @@ class _AuthScreenState extends State<AuthScrren> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Contaier da imagem da tela de login
               Container(
                 margin: const EdgeInsets.only(
                   top: 30,
@@ -111,6 +116,8 @@ class _AuthScreenState extends State<AuthScrren> {
                 width: 200,
                 child: Image.asset("assets/images/chat.png"),
               ),
+
+              // Formilário de login ou cadastro
               Card(
                   margin: const EdgeInsets.all(20),
                   child: SingleChildScrollView(
@@ -121,6 +128,7 @@ class _AuthScreenState extends State<AuthScrren> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            // pode carregar uma imagem somente se não estiver logado
                             if (!_estaLogado)
                               ImageUsuarioPicker(
                                 imagemSelecionada: (imagemcarregada) {
@@ -146,6 +154,8 @@ class _AuthScreenState extends State<AuthScrren> {
                                 _email = value!;
                               },
                             ),
+
+                            // Pode informar o nome somente se não estiver logado
                             if (!_estaLogado)
                               TextFormField(
                                 decoration: const InputDecoration(
@@ -186,6 +196,7 @@ class _AuthScreenState extends State<AuthScrren> {
                             ),
                             if (_estaAutenticado)
                               const CircularProgressIndicator(),
+
                             if (!_estaAutenticado)
                               ElevatedButton(
                                 onPressed: _submit,

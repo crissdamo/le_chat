@@ -26,20 +26,26 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Le Chat',
       theme: ThemeData().copyWith(
-        // useMaterial3: true,
         colorScheme:
             ColorScheme.fromSeed(seedColor: Color.fromARGB(78, 0, 0, 0)),
       ),
+      // A diferença entre o StreamBuilder e o FutureBuilder, é que o Future
+      // devolve um valor ou erro, enquanto o Stream pode devolver vários
+      // valores ao longo do tempo
       home: StreamBuilder(
+        // FirebaseAuth.instance.authStateChanges() fica ouvindo se ocorre
+        // alguma mudança sobre o estado de autenticação do usuário
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (cxt, snapshot) {
           // Mostra splash enquando carrega dados de auenticação do Firebase
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();
           }
+          // Se o usuário estiver logado (se snapshot.hasData tiveros dados do usuário), vai para tela de chat
           if (snapshot.hasData) {
             return const ChatScreen();
           }
+          // Se não estiver logado, é direcionao para tela da conta (login ou criar conta)
           return AuthScrren();
         },
       ),
