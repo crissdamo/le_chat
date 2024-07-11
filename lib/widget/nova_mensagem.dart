@@ -51,9 +51,9 @@ class _NovaMensagemState extends State<NovaMensagem> {
 
 // iNÍCIO: Recebe notificação local após o envio de uma mensagem
     const AndroidNotificationDetails canalAgora = AndroidNotificationDetails(
-      'canalAgoraId',
-      'Notificações Agora',
-      channelDescription: 'notificações bem importantes e no momento exato',
+      'canal1Id',
+      'Notificações locais',
+      channelDescription: 'notificações local',
       importance: Importance.max,
       priority: Priority.high,
     );

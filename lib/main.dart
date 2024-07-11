@@ -1,3 +1,4 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await AndroidAlarmManager.initialize();
   runApp(const MyApp());
 }
 
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
             return const ChatScreen();
           }
           // Se não estiver logado, é direcionao para tela da conta (login ou criar conta)
-          return AuthScrren();
+          return const AuthScrren();
         },
       ),
 

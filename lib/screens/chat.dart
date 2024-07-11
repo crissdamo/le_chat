@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:habla/widget/chat_mensagens.dart';
+import 'package:habla/widget/lembrete.dart';
 import 'package:habla/widget/nova_mensagem.dart';
 import 'package:logger/logger.dart';
 
@@ -111,6 +112,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: MensagemChat(),
           ),
           NovaMensagem(),
+          Lembrete(),
         ],
       ),
     );
